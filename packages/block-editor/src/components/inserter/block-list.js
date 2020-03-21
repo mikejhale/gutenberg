@@ -4,7 +4,6 @@
 import {
 	map,
 	pick,
-	includes,
 	filter,
 	findIndex,
 	flow,
@@ -202,7 +201,7 @@ function InserterBlockList( {
 
 	const childItems = useMemo( () => {
 		return filter( filteredItems, ( { name } ) =>
-			includes( rootChildBlocks, name )
+			rootChildBlocks.includes( name )
 		);
 	}, [ filteredItems, rootChildBlocks ] );
 
