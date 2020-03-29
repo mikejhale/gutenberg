@@ -9,6 +9,7 @@ import {
 	flow,
 	sortBy,
 	groupBy,
+	includes,
 	isEmpty,
 	without,
 } from 'lodash';
@@ -201,7 +202,7 @@ function InserterBlockList( {
 
 	const childItems = useMemo( () => {
 		return filter( filteredItems, ( { name } ) =>
-			rootChildBlocks.includes( name )
+			includes( rootChildBlocks, name )
 		);
 	}, [ filteredItems, rootChildBlocks ] );
 
