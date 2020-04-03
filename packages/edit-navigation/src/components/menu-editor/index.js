@@ -4,20 +4,14 @@
 import {
 	BlockEditorKeyboardShortcuts,
 	BlockEditorProvider,
-	BlockList,
-	BlockToolbar,
-	NavigableToolbar,
-	ObserveTyping,
-	WritingFlow,
-	__experimentalBlockNavigationList,
 } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { Button, Panel, PanelBody } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import useNavigationBlocks from './use-navigation-blocks';
+import BlockEditorPanel from './block-editor-panel';
+import NavigationStructurePanel from './navigation-structure-panel';
 
 export default function MenuEditor( { menuId, blockEditorSettings } ) {
 	const [ blocks, setBlocks, saveBlocks ] = useNavigationBlocks( menuId );
@@ -37,40 +31,8 @@ export default function MenuEditor( { menuId, blockEditorSettings } ) {
 				} }
 			>
 				<BlockEditorKeyboardShortcuts />
-				<Panel>
-					<PanelBody title={ __( 'Navigation structure' ) }>
-						{ !! blocks.length && (
-							<__experimentalBlockNavigationList
-								blocks={ blocks }
-								selectedBlockClientId={ blocks[ 0 ].clientId }
-								selectBlock={ () => {} }
-								showNestedBlocks
-								showAppender
-							/>
-						) }
-					</PanelBody>
-				</Panel>
-				<Panel
-					header={
-						<Button isPrimary onClick={ saveBlocks }>
-							{ __( 'Save navigation' ) }
-						</Button>
-					}
-				>
-					<PanelBody title={ __( 'Navigation menu' ) }>
-						<NavigableToolbar
-							className="edit-navigation-menu-editor__toolbar"
-							aria-label={ __( 'Block tools' ) }
-						>
-							<BlockToolbar hideDragHandle />
-						</NavigableToolbar>
-						<WritingFlow>
-							<ObserveTyping>
-								<BlockList />
-							</ObserveTyping>
-						</WritingFlow>
-					</PanelBody>
-				</Panel>
+				<NavigationStructurePanel blocks={ blocks } />
+				<BlockEditorPanel menuId={ menuId } saveBlocks={ saveBlocks } />
 			</BlockEditorProvider>
 		</div>
 	);
